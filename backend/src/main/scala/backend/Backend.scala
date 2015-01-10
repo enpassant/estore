@@ -17,6 +17,10 @@ object Backend extends App {
     case args        => throw new IllegalArgumentException(s"only ports. Args [ $args ] are invalid")
   }
 
+  val strArgs = args mkString " "
+  println(s"Args: $strArgs")
+  println(s"Port: $port")
+
   // System initialization
   val properties = Map(
       "akka.remote.netty.tcp.port" -> port

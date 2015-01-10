@@ -1,36 +1,14 @@
-// TODO Set your organization here
-organization in ThisBuild := "your.organization"
-
-// TODO Set your version here
-version in ThisBuild := "1.0"
-
-scalaVersion in ThisBuild := "2.11.1"
+import AssemblyKeys._
 
 lazy val frontend = (project in file("frontend"))
-    .enablePlugins(PlayScala)
-    .settings(
-        name := """estore""",
-        libraryDependencies ++= (Dependencies.frontend  ++ Seq(filters, cache)),
-        pipelineStages := Seq(rjs, digest, gzip),
-        RjsKeys.paths += ("jsRoutes" -> ("/jsroutes" -> "empty:"))
-    ).dependsOn(api).aggregate(api)
+  .enablePlugins(PlayScala)
+  .dependsOn(api).aggregate(api)
 
 lazy val backend = (project in file("backend"))
-    .settings(
-        name := "backend",
-        libraryDependencies ++= Dependencies.backend,
-        javaOptions in run ++= Seq(
-            "-Djava.library.path=./sigar", 
-            "-Xms128m", "-Xmx1024m"),
-        // this enables custom javaOptions
-        fork in run := true
-    ).dependsOn(api).aggregate(api)
-    
+  .settings(assemblySettings: _*)
+  .dependsOn(api).aggregate(api)
+
 lazy val api = (project in file("api"))
-    .settings(
-        name := "api",
-        libraryDependencies ++= Dependencies.backend
-    )
 
 //
 // Scala Compiler Options
