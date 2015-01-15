@@ -1,4 +1,4 @@
-import AssemblyKeys._
+ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 
 lazy val frontend = (project in file("frontend"))
   .enablePlugins(PlayScala)
