@@ -1,4 +1,22 @@
+//import AssemblyKeys._
+import com.typesafe.sbt.SbtNativePackager._
+import NativePackagerKeys._
+
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
+
+//assemblySettings
+
+//enablePlugins(DockerPlugin)
+
+//packageArchetype.java_application
+
+maintainer in Docker := "Enpassant <fkalman@index.hu>"
+
+//mappings in Docker := mappings.value
+
+version in Docker := version.value
+
+defaultLinuxInstallLocation in Docker := "/opt/docker"
 
 lazy val frontend = (project in file("frontend"))
   .enablePlugins(PlayScala)
